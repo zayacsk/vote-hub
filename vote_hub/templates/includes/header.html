@@ -1,0 +1,60 @@
+{% load static %}
+<header class="border-bottom bg-white">
+  <nav class="container navbar navbar-expand-lg">
+    <a class="navbar-brand fw-semibold text-dark" href="{% url 'project:index' %}">
+      <img src="{% static 'img/logo.png' %}" width="28" height="28" class="me-2">
+      VoteHub
+    </a>
+    {% with request.resolver_match.view_name as view_name %}
+    <ul class="navbar-nav ms-auto align-items-center">
+      <li class="nav-item">
+        <a class="nav-link {% if view_name == 'pages:about' %}fw-semibold text-primary{% else %}text-secondary{% endif %}"
+           href="{% url 'pages:about' %}">
+          О проекте
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if view_name == 'pages:rules' %}fw-semibold text-primary{% else %}text-secondary{% endif %}"
+           href="{% url 'pages:rules' %}">
+          Правила
+        </a>
+      </li>
+      {% if user.is_authenticated %}
+        <li class="nav-item ms-3">
+          <a class="btn btn-outline-primary btn-sm"
+             href="{% url 'project:create_project' %}">
+            Предложить проект
+          </a>
+        </li>
+        <li class="nav-item ms-3">
+          <a class="nav-link text-dark"
+             href="{% url 'project:profile' user.username %}">
+            {{ user.username }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="btn btn-link text-secondary text-decoration-none">
+              Выйти
+            </button>
+          </form>
+        </li>
+      {% else %}
+        <li class="nav-item ms-3">
+          <a class="btn btn-outline-primary btn-sm"
+             href="{% url 'login' %}">
+            Войти
+          </a>
+        </li>
+        <li class="nav-item ms-2">
+          <a class="btn btn-primary btn-sm"
+             href="{% url 'registration' %}">
+            Регистрация
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+    {% endwith %}
+  </nav>
+</header>

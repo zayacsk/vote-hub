@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+Проекты в категории {{ category.title }}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="text-center mb-5">
+    <h2 class="mb-2">{{ category.title }}</h2>
+    <p class="text-muted">{{ category.description }}</p>
+  </div>
+  {% for project in page_obj %}
+    <article class="mb-4">
+      {% include "includes/project_card.html" %}
+    </article>
+  {% endfor %}
+  {% include "includes/paginator.html" %}
+</div>
+{% endblock %}

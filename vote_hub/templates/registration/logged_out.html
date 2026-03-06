@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-center">
+  <div class="card border-0 shadow-sm" style="max-width:42rem;width:100%;">
+    <div class="card-body text-center p-5">
+      <h4 class="mb-3">Вы вышли из системы</h4>
+      <p class="text-muted mb-4">
+        Спасибо за использование VoteHub
+      </p>
+      <a class="btn btn-outline-primary me-2"
+         href="{% url 'login' %}">
+        Войти снова
+      </a>
+      <a class="btn btn-outline-secondary"
+         href="{% url 'project:index' %}">
+        На главную
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

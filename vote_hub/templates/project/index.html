@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+Лента проектов
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="text-center mb-5">
+    <h2>Лента проектов</h2>
+    <p class="text-muted">Идеи, предложенные сообществом</p>
+  </div>
+  {% for project in page_obj %}
+  <article class="mb-4">
+    {% include "includes/project_card.html" %}
+  </article>
+  {% endfor %}
+  {% include "includes/paginator.html" %}
+</div>
+{% endblock %}

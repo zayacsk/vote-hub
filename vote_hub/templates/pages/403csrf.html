@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Ошибка доступа{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+  <h1 class="mb-3">403</h1>
+  <p class="text-muted mb-4">
+    Ошибка проверки безопасности (CSRF).  
+    Возможно, форма была отправлена повторно или страница устарела.
+  </p>
+  <a class="btn btn-outline-primary"
+     href="{% url 'project:index' %}">
+    Вернуться на главную
+  </a>
+</div>
+{% endblock %}

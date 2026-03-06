@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Страница не найдена{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+  <h1 class="mb-3">404</h1>
+  <p class="text-muted mb-4">
+    Страница по адресу<br>
+    <small>{{ request.build_absolute_uri }}</small><br>
+    не существует или была удалена.
+  </p>
+  <a class="btn btn-outline-primary"
+     href="{% url 'project:index' %}">
+    На главную
+  </a>
+</div>
+{% endblock %}

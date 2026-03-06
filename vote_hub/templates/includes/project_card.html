@@ -1,0 +1,63 @@
+<div class="col d-flex justify-content-center">
+  <div class="card border-0 shadow-sm mb-4" style="max-width: 42rem; width:100%;">
+    <div class="card-body">
+      {% if project.image %}
+        <a href="{{ project.image.url }}" target="_blank">
+          <img class="img-fluid rounded mb-3"
+               src="{{ project.image.url }}">
+        </a>
+      {% endif %}
+      <h5 class="card-title mb-2">
+        {{ project.title }}
+      </h5>
+      <div class="small text-muted mb-2">
+        {% if not project.is_published %}
+          <div class="text-danger">Проект снят с публикации</div>
+        {% elif not project.category.is_published %}
+          <div class="text-danger">Категория снята администратором</div>
+        {% endif %}
+        {{ project.pub_date|date:"d E Y, H:i" }}
+        <br>
+        Автор
+        <a class="text-decoration-none text-secondary"
+           href="{% url 'project:profile' project.author.username %}">
+          @{{ project.author.username }}
+        </a>
+        ·
+        Категория
+        {% include "includes/category_link.html" %}
+      </div>
+      <p class="card-text text-dark">
+        {{ project.text|truncatewords:20|linebreaksbr }}
+      </p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <a href="{% url 'project:project_detail' project.id %}"
+             class="text-decoration-none me-3">
+            Читать
+          </a>
+          <a href="{% url 'project:project_detail' project.id %}"
+             class="text-muted text-decoration-none">
+            Комментарии ({{ project.comment_count }})
+          </a>
+        </div>
+        {% if user.is_authenticated %}
+        <form action="{% url 'project:vote' project.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit"
+                  class="btn btn-outline-primary btn-sm">
+            {% if user in project.votes.all %}
+              Отменить голос
+            {% else %}
+              Голос
+            {% endif %}
+          </button>
+          <span class="ms-2 text-muted">
+            {{ project.total_votes }}
+          </span>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}
+Профиль {{ profile.username }}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="text-center mb-4">
+    <h3>@{{ profile.username }}</h3>
+    <div class="text-muted">
+      <p>
+        Имя: {{ profile.get_full_name|default:"не указано" }}
+      </p>
+      <p>
+        Дата регистрации: {{ profile.date_joined }}
+      </p>
+      <p>
+        Роль:
+        {% if profile.is_staff %}
+        Администратор
+        {% else %}
+        Пользователь
+        {% endif %}
+      </p>
+    </div>
+    {% if user == profile %}
+    <div class="mt-3">
+      <a class="btn btn-outline-primary btn-sm me-2" href="{% url 'project:edit_profile' %}">
+        Редактировать профиль
+      </a>
+      <a class="btn btn-outline-secondary btn-sm" href="{% url 'password_change' %}">
+        Изменить пароль
+      </a>
+    </div>
+    {% endif %}
+  </div>
+  <hr class="mb-5">
+  <h4 class="text-center mb-4">
+    Проекты пользователя
+  </h4>
+  {% for project in page_obj %}
+  <article class="mb-4">
+    {% include "includes/project_card.html" %}
+  </article>
+  {% endfor %}
+  {% include "includes/paginator.html" %}
+</div>
+{% endblock %}

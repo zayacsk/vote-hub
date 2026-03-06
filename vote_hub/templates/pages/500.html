@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Ошибка сервера{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+  <h1 class="mb-3">500</h1>
+  <p class="text-muted mb-4">
+    На сервере произошла ошибка.  
+    Мы уже работаем над её устранением.
+  </p>
+  <a class="btn btn-outline-primary"
+     href="{% url 'project:index' %}">
+    Вернуться на главную
+  </a>
+</div>
+{% endblock %}

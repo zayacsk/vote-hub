@@ -1,0 +1,8 @@
+asgiref==3.11.1
+Django==6.0.2
+django-bootstrap5==26.2
+dotenv==0.9.9
+python-dotenv==1.2.2
+python-slugify==8.0.4
+sqlparse==0.5.5
+text-unidecode==1.3
