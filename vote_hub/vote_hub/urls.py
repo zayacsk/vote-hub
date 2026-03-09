@@ -18,12 +18,16 @@ from django.urls import path, include, reverse_lazy
 from django.contrib import admin
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
 handler404 = 'pages.views.page_not_found'
 handler500 = 'pages.views.internal_server_error'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),
     path('', include('projects.urls', namespace='project')),
     path('pages/', include('pages.urls')),
     path(
@@ -36,4 +40,35 @@ urlpatterns = [
         name='registration',
     ),
     path('auth/', include('django.contrib.auth.urls')),
+]
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="VoteHub API",
+      default_version='v1',
+      description="Документация для проекта VoteHub",
+      contact=openapi.Contact(email="admin@votehub.ru"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+   authentication_classes=(),
+)
+
+urlpatterns += [
+   path(
+       'swagger<format>/',
+       schema_view.without_ui(cache_timeout=0),
+       name='schema-json'
+    ),
+   path(
+       'swagger/',
+       schema_view.with_ui('swagger', cache_timeout=0),
+       name='schema-swagger-ui'
+    ),
+   path(
+       'redoc/',
+       schema_view.with_ui('redoc', cache_timeout=0),
+       name='schema-redoc'
+    ),
 ]
